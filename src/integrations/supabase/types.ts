@@ -14,16 +14,245 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      app_settings: {
+        Row: {
+          id: string
+          key: string
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          id?: string
+          key: string
+          updated_at?: string
+          value?: string
+        }
+        Update: {
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: string
+        }
+        Relationships: []
+      }
+      blood_requests: {
+        Row: {
+          blood_group: string
+          contact_number: string
+          created_at: string
+          hospital: string
+          id: string
+          patient_name: string
+          reason: string | null
+          requester_id: string | null
+          required_date: string | null
+          status: string
+          units: number
+          updated_at: string
+          urgency: string
+        }
+        Insert: {
+          blood_group: string
+          contact_number?: string
+          created_at?: string
+          hospital: string
+          id?: string
+          patient_name: string
+          reason?: string | null
+          requester_id?: string | null
+          required_date?: string | null
+          status?: string
+          units?: number
+          updated_at?: string
+          urgency?: string
+        }
+        Update: {
+          blood_group?: string
+          contact_number?: string
+          created_at?: string
+          hospital?: string
+          id?: string
+          patient_name?: string
+          reason?: string | null
+          requester_id?: string | null
+          required_date?: string | null
+          status?: string
+          units?: number
+          updated_at?: string
+          urgency?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          created_at: string
+          donation_date: string
+          hospital: string | null
+          id: string
+          notes: string | null
+          profile_id: string
+          units: number
+        }
+        Insert: {
+          created_at?: string
+          donation_date?: string
+          hospital?: string | null
+          id?: string
+          notes?: string | null
+          profile_id: string
+          units?: number
+        }
+        Update: {
+          created_at?: string
+          donation_date?: string
+          hospital?: string | null
+          id?: string
+          notes?: string | null
+          profile_id?: string
+          units?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donations_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          camp_date: string | null
+          created_at: string
+          id: string
+          message: string
+          target_blood_group: string | null
+          title: string
+          type: string
+        }
+        Insert: {
+          camp_date?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          target_blood_group?: string | null
+          title: string
+          type?: string
+        }
+        Update: {
+          camp_date?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          target_blood_group?: string | null
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          blood_group: string
+          created_at: string
+          department: string
+          dob: string | null
+          email: string
+          full_name: string
+          gender: string
+          id: string
+          last_donation_date: string | null
+          medical_conditions: string | null
+          phone: string
+          photo_url: string | null
+          register_number: string
+          updated_at: string
+          user_id: string | null
+          weight: number | null
+          willing: boolean
+          year: number
+        }
+        Insert: {
+          address?: string | null
+          blood_group?: string
+          created_at?: string
+          department?: string
+          dob?: string | null
+          email?: string
+          full_name: string
+          gender?: string
+          id?: string
+          last_donation_date?: string | null
+          medical_conditions?: string | null
+          phone?: string
+          photo_url?: string | null
+          register_number: string
+          updated_at?: string
+          user_id?: string | null
+          weight?: number | null
+          willing?: boolean
+          year?: number
+        }
+        Update: {
+          address?: string | null
+          blood_group?: string
+          created_at?: string
+          department?: string
+          dob?: string | null
+          email?: string
+          full_name?: string
+          gender?: string
+          id?: string
+          last_donation_date?: string | null
+          medical_conditions?: string | null
+          phone?: string
+          photo_url?: string | null
+          register_number?: string
+          updated_at?: string
+          user_id?: string | null
+          weight?: number | null
+          willing?: boolean
+          year?: number
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "student"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +379,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "student"],
+    },
   },
 } as const
