@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminRequestsRouteImport } from './routes/admin.requests'
+import { Route as LoginAdminRouteImport } from './routes/login.admin'
+import { Route as LoginStudentRouteImport } from './routes/login.student'
+import { Route as AdminDonorsIndexRouteImport } from './routes/admin.donors.index'
+import { Route as AdminDonorsNewRouteImport } from './routes/admin.donors.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRequestsRoute = AdminRequestsRouteImport.update({
+  id: '/admin/requests',
+  path: '/admin/requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginAdminRoute = LoginAdminRouteImport.update({
+  id: '/login/admin',
+  path: '/login/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginStudentRoute = LoginStudentRouteImport.update({
+  id: '/login/student',
+  path: '/login/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDonorsIndexRoute = AdminDonorsIndexRouteImport.update({
+  id: '/admin/donors/',
+  path: '/admin/donors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDonorsNewRoute = AdminDonorsNewRouteImport.update({
+  id: '/admin/donors/new',
+  path: '/admin/donors/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/register': typeof RegisterRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/login/admin': typeof LoginAdminRoute
+  '/login/student': typeof LoginStudentRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/donors/new': typeof AdminDonorsNewRoute
+  '/admin/donors/': typeof AdminDonorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/register': typeof RegisterRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/login/admin': typeof LoginAdminRoute
+  '/login/student': typeof LoginStudentRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/donors/new': typeof AdminDonorsNewRoute
+  '/admin/donors': typeof AdminDonorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/register': typeof RegisterRoute
+  '/admin/requests': typeof AdminRequestsRoute
+  '/login/admin': typeof LoginAdminRoute
+  '/login/student': typeof LoginStudentRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/donors/new': typeof AdminDonorsNewRoute
+  '/admin/donors/': typeof AdminDonorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/register'
+    | '/admin/requests'
+    | '/login/admin'
+    | '/login/student'
+    | '/admin/'
+    | '/admin/donors/new'
+    | '/admin/donors/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/register'
+    | '/admin/requests'
+    | '/login/admin'
+    | '/login/student'
+    | '/admin'
+    | '/admin/donors/new'
+    | '/admin/donors'
+  id:
+    | '__root__'
+    | '/'
+    | '/register'
+    | '/admin/requests'
+    | '/login/admin'
+    | '/login/student'
+    | '/admin/'
+    | '/admin/donors/new'
+    | '/admin/donors/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RegisterRoute: typeof RegisterRoute
+  AdminRequestsRoute: typeof AdminRequestsRoute
+  LoginAdminRoute: typeof LoginAdminRoute
+  LoginStudentRoute: typeof LoginStudentRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminDonorsNewRoute: typeof AdminDonorsNewRoute
+  AdminDonorsIndexRoute: typeof AdminDonorsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/requests': {
+      id: '/admin/requests'
+      path: '/admin/requests'
+      fullPath: '/admin/requests'
+      preLoaderRoute: typeof AdminRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/admin': {
+      id: '/login/admin'
+      path: '/login/admin'
+      fullPath: '/login/admin'
+      preLoaderRoute: typeof LoginAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/student': {
+      id: '/login/student'
+      path: '/login/student'
+      fullPath: '/login/student'
+      preLoaderRoute: typeof LoginStudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/donors/': {
+      id: '/admin/donors/'
+      path: '/admin/donors'
+      fullPath: '/admin/donors/'
+      preLoaderRoute: typeof AdminDonorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/donors/new': {
+      id: '/admin/donors/new'
+      path: '/admin/donors/new'
+      fullPath: '/admin/donors/new'
+      preLoaderRoute: typeof AdminDonorsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RegisterRoute: RegisterRoute,
+  AdminRequestsRoute: AdminRequestsRoute,
+  LoginAdminRoute: LoginAdminRoute,
+  LoginStudentRoute: LoginStudentRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminDonorsNewRoute: AdminDonorsNewRoute,
+  AdminDonorsIndexRoute: AdminDonorsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
