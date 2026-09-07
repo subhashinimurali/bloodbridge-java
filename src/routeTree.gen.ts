@@ -12,9 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminRequestsRouteImport } from './routes/admin.requests'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as LoginAdminRouteImport } from './routes/login.admin'
 import { Route as LoginStudentRouteImport } from './routes/login.student'
+import { Route as StudentIndexRouteImport } from './routes/student.index'
+import { Route as StudentHistoryRouteImport } from './routes/student.history'
+import { Route as StudentNotificationsRouteImport } from './routes/student.notifications'
+import { Route as StudentProfileRouteImport } from './routes/student.profile'
+import { Route as StudentRequestRouteImport } from './routes/student.request'
 import { Route as AdminDonorsIndexRouteImport } from './routes/admin.donors.index'
 import { Route as AdminDonorsNewRouteImport } from './routes/admin.donors.new'
 
@@ -33,9 +41,24 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/admin/notifications',
+  path: '/admin/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRequestsRoute = AdminRequestsRouteImport.update({
   id: '/admin/requests',
   path: '/admin/requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginAdminRoute = LoginAdminRouteImport.update({
@@ -46,6 +69,31 @@ const LoginAdminRoute = LoginAdminRouteImport.update({
 const LoginStudentRoute = LoginStudentRouteImport.update({
   id: '/login/student',
   path: '/login/student',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/student/',
+  path: '/student/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentHistoryRoute = StudentHistoryRouteImport.update({
+  id: '/student/history',
+  path: '/student/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentNotificationsRoute = StudentNotificationsRouteImport.update({
+  id: '/student/notifications',
+  path: '/student/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/student/profile',
+  path: '/student/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRequestRoute = StudentRequestRouteImport.update({
+  id: '/student/request',
+  path: '/student/request',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDonorsIndexRoute = AdminDonorsIndexRouteImport.update({
@@ -62,20 +110,36 @@ const AdminDonorsNewRoute = AdminDonorsNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/requests': typeof AdminRequestsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/login/admin': typeof LoginAdminRoute
   '/login/student': typeof LoginStudentRoute
+  '/student/history': typeof StudentHistoryRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/request': typeof StudentRequestRoute
   '/admin/': typeof AdminIndexRoute
+  '/student/': typeof StudentIndexRoute
   '/admin/donors/new': typeof AdminDonorsNewRoute
   '/admin/donors/': typeof AdminDonorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/requests': typeof AdminRequestsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/login/admin': typeof LoginAdminRoute
   '/login/student': typeof LoginStudentRoute
+  '/student/history': typeof StudentHistoryRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/request': typeof StudentRequestRoute
   '/admin': typeof AdminIndexRoute
+  '/student': typeof StudentIndexRoute
   '/admin/donors/new': typeof AdminDonorsNewRoute
   '/admin/donors': typeof AdminDonorsIndexRoute
 }
@@ -83,10 +147,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/register': typeof RegisterRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/reports': typeof AdminReportsRoute
   '/admin/requests': typeof AdminRequestsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/login/admin': typeof LoginAdminRoute
   '/login/student': typeof LoginStudentRoute
+  '/student/history': typeof StudentHistoryRoute
+  '/student/notifications': typeof StudentNotificationsRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/student/request': typeof StudentRequestRoute
   '/admin/': typeof AdminIndexRoute
+  '/student/': typeof StudentIndexRoute
   '/admin/donors/new': typeof AdminDonorsNewRoute
   '/admin/donors/': typeof AdminDonorsIndexRoute
 }
@@ -95,30 +167,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/register'
+    | '/admin/notifications'
+    | '/admin/reports'
     | '/admin/requests'
+    | '/admin/settings'
     | '/login/admin'
     | '/login/student'
+    | '/student/history'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/request'
     | '/admin/'
+    | '/student/'
     | '/admin/donors/new'
     | '/admin/donors/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/register'
+    | '/admin/notifications'
+    | '/admin/reports'
     | '/admin/requests'
+    | '/admin/settings'
     | '/login/admin'
     | '/login/student'
+    | '/student/history'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/request'
     | '/admin'
+    | '/student'
     | '/admin/donors/new'
     | '/admin/donors'
   id:
     | '__root__'
     | '/'
     | '/register'
+    | '/admin/notifications'
+    | '/admin/reports'
     | '/admin/requests'
+    | '/admin/settings'
     | '/login/admin'
     | '/login/student'
+    | '/student/history'
+    | '/student/notifications'
+    | '/student/profile'
+    | '/student/request'
     | '/admin/'
+    | '/student/'
     | '/admin/donors/new'
     | '/admin/donors/'
   fileRoutesById: FileRoutesById
@@ -126,10 +222,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RegisterRoute: typeof RegisterRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
   AdminRequestsRoute: typeof AdminRequestsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   LoginAdminRoute: typeof LoginAdminRoute
   LoginStudentRoute: typeof LoginStudentRoute
+  StudentHistoryRoute: typeof StudentHistoryRoute
+  StudentNotificationsRoute: typeof StudentNotificationsRoute
+  StudentProfileRoute: typeof StudentProfileRoute
+  StudentRequestRoute: typeof StudentRequestRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  StudentIndexRoute: typeof StudentIndexRoute
   AdminDonorsNewRoute: typeof AdminDonorsNewRoute
   AdminDonorsIndexRoute: typeof AdminDonorsIndexRoute
 }
@@ -157,11 +261,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/admin/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/requests': {
       id: '/admin/requests'
       path: '/admin/requests'
       fullPath: '/admin/requests'
       preLoaderRoute: typeof AdminRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login/admin': {
@@ -176,6 +301,41 @@ declare module '@tanstack/react-router' {
       path: '/login/student'
       fullPath: '/login/student'
       preLoaderRoute: typeof LoginStudentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/student'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/history': {
+      id: '/student/history'
+      path: '/student/history'
+      fullPath: '/student/history'
+      preLoaderRoute: typeof StudentHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/notifications': {
+      id: '/student/notifications'
+      path: '/student/notifications'
+      fullPath: '/student/notifications'
+      preLoaderRoute: typeof StudentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/request': {
+      id: '/student/request'
+      path: '/student/request'
+      fullPath: '/student/request'
+      preLoaderRoute: typeof StudentRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/donors/': {
@@ -198,10 +358,18 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RegisterRoute: RegisterRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminReportsRoute: AdminReportsRoute,
   AdminRequestsRoute: AdminRequestsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   LoginAdminRoute: LoginAdminRoute,
   LoginStudentRoute: LoginStudentRoute,
+  StudentHistoryRoute: StudentHistoryRoute,
+  StudentNotificationsRoute: StudentNotificationsRoute,
+  StudentProfileRoute: StudentProfileRoute,
+  StudentRequestRoute: StudentRequestRoute,
   AdminIndexRoute: AdminIndexRoute,
+  StudentIndexRoute: StudentIndexRoute,
   AdminDonorsNewRoute: AdminDonorsNewRoute,
   AdminDonorsIndexRoute: AdminDonorsIndexRoute,
 }
