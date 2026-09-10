@@ -60,6 +60,11 @@ function StudentLogin() {
           </Field>
           <Field label="Password" htmlFor="password">
             <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" />
+            <div className="pt-1 text-right">
+              <Link to="/forgot-password" className="text-xs font-medium text-primary hover:underline">
+                Forgot password?
+              </Link>
+            </div>
           </Field>
           <Button type="submit" disabled={busy} className="w-full gradient-primary shadow-glow">
             {busy ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
