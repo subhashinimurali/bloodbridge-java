@@ -20,9 +20,28 @@ export const GENDERS = ["Male", "Female", "Other"] as const;
 export const URGENCIES = ["Normal", "High", "Critical"] as const;
 export const REQUEST_STATUSES = ["Pending", "Approved", "Rejected", "Completed"] as const;
 
-/** Auth is email based, so a register number is mapped to a stable internal address. */
+/** Legacy mapping: register number → internal auth address (pre real-email accounts). */
 export function registerNumberToEmail(registerNumber: string): string {
   return `${registerNumber.trim().toLowerCase().replace(/[^a-z0-9]/g, "")}@bdms.local`;
+}
+
+/**
+ * Resolve the auth email for a register number. New accounts use the student's
+ * real registered email so password-reset links reach their inbox; older
+ * accounts fall back to the internal address.
+ */
+export async function resolveAuthEmail(registerNumber: string): Promise<string> {
+  const fallback = registerNumberToEmail(registerNumber);
+  try {
+    const { supabase } = await import("@/integrations/supabase/client");
+    const { data } = await supabase.rpc("auth_email_for_register_number", {
+      _register_number: registerNumber,
+    });
+    if (typeof data === "string" && data.includes("@")) return data;
+  } catch {
+    // fall through to legacy mapping
+  }
+  return fallback;
 }
 
 export function usernameToEmail(username: string): string {
