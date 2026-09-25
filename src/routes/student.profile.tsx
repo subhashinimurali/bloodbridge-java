@@ -97,6 +97,7 @@ function StudentProfile() {
   const save = useMutation({
     mutationFn: async () => {
       if (!profile) throw new Error("Profile not found");
+      const newEmail = form.email.trim().toLowerCase();
       const { error } = await supabase
         .from("profiles")
         .update({
@@ -105,7 +106,7 @@ function StudentProfile() {
           year: Number(form.year),
           gender: form.gender,
           phone: form.phone,
-          email: form.email,
+          email: newEmail,
           blood_group: form.blood_group,
           dob: form.dob || null,
           weight: form.weight ? Number(form.weight) : null,
@@ -116,6 +117,11 @@ function StudentProfile() {
         })
         .eq("id", profile.id);
       if (error) throw error;
+      // Keep the sign-in email in sync so password resets reach the new inbox.
+      if (newEmail && newEmail !== profile.email.trim().toLowerCase()) {
+        const { error: mailError } = await supabase.auth.updateUser({ email: newEmail });
+        if (mailError) throw mailError;
+      }
     },
     onSuccess: () => {
       toast.success("Profile updated");

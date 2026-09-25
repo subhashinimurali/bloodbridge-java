@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Droplet, Loader2, MailCheck, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { registerNumberToEmail } from "@/lib/bdms";
+import { resolveAuthEmail } from "@/lib/bdms";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -29,7 +29,7 @@ function ForgotPassword() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(registerNumberToEmail(reg), {
+    const { error } = await supabase.auth.resetPasswordForEmail(await resolveAuthEmail(reg), {
       redirectTo: `${window.location.origin}/reset-password`,
     });
     setBusy(false);
@@ -57,7 +57,7 @@ function ForgotPassword() {
             <h1 className="font-display text-lg font-semibold">Check your email</h1>
             <p className="text-sm text-muted-foreground">
               If an account exists for register number <span className="font-medium text-foreground">{reg}</span>,
-              we've sent a password reset link. Follow it to choose a new password.
+              we've sent a password reset link to its registered email address. Follow it to choose a new password.
             </p>
             <Button asChild variant="outline" className="w-full">
               <Link to="/login/student">Back to sign in</Link>

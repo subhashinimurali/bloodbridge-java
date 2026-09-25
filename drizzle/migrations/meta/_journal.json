@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790313282073,
+      "tag": "0000_student_auth_real_email",
+      "breakpoints": true
+    }
+  ]
+}

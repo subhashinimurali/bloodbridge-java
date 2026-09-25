@@ -3,7 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Droplet, Loader2, LogIn } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { registerNumberToEmail } from "@/lib/bdms";
+import { resolveAuthEmail } from "@/lib/bdms";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ function StudentLogin() {
     e.preventDefault();
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({
-      email: registerNumberToEmail(reg),
+      email: await resolveAuthEmail(reg),
       password,
     });
     setBusy(false);

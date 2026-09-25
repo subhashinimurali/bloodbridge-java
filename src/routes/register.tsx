@@ -3,13 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Droplet, Loader2, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import {
-  BLOOD_GROUPS,
-  DEPARTMENTS,
-  GENDERS,
-  YEARS,
-  registerNumberToEmail,
-} from "@/lib/bdms";
+import { BLOOD_GROUPS, DEPARTMENTS, GENDERS, YEARS } from "@/lib/bdms";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -60,7 +54,7 @@ function Register() {
     }
     setBusy(true);
     const { data, error } = await supabase.auth.signUp({
-      email: registerNumberToEmail(form.register_number),
+      email: form.email.trim().toLowerCase(),
       password: form.password,
       options: { emailRedirectTo: `${window.location.origin}/student` },
     });
@@ -151,8 +145,8 @@ function Register() {
             <Field label="Phone" htmlFor="phone">
               <Input id="phone" required value={form.phone} onChange={(e) => set("phone", e.target.value)} />
             </Field>
-            <Field label="Email" htmlFor="email">
-              <Input id="email" type="email" value={form.email} onChange={(e) => set("email", e.target.value)} />
+            <Field label="Email" htmlFor="email" hint="Password reset links are sent here">
+              <Input id="email" type="email" required value={form.email} onChange={(e) => set("email", e.target.value)} />
             </Field>
             <Field label="Date of Birth" htmlFor="dob">
               <Input id="dob" type="date" value={form.dob} onChange={(e) => set("dob", e.target.value)} />
