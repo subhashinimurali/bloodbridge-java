@@ -57,7 +57,7 @@ function ForgotPassword() {
             <h1 className="font-display text-lg font-semibold">Check your email</h1>
             <p className="text-sm text-muted-foreground">
               If an account exists for register number <span className="font-medium text-foreground">{reg}</span>,
-              we've sent a password reset link. Follow it to choose a new password.
+              we've sent a password reset link to its registered email address. Follow it to choose a new password.
             </p>
             <Button asChild variant="outline" className="w-full">
               <Link to="/login/student">Back to sign in</Link>
