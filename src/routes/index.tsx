@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Activity, Droplet, HeartPulse, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,12 @@ const features = [
 ];
 
 function Landing() {
+  useEffect(() => {
+    const { hash, search } = window.location;
+    if (hash.includes("type=recovery") || search.includes("type=recovery") || (search.includes("code=") && !hash)) {
+      window.location.replace(`/reset-password${search}${hash}`);
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <header className="flex h-16 items-center justify-between px-5 sm:px-10">
