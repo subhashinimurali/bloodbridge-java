@@ -29,22 +29,43 @@ function ResetPassword() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    // The recovery link arrives with tokens in the URL hash; the supabase client
-    // exchanges them and fires PASSWORD_RECOVERY once the session is ready.
-    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") setReady(true);
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (session && event === "SIGNED_IN")) setReady(true);
     });
-    // If the page was opened with an already-active recovery session, allow the form too.
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) setReady(true);
-      else
-        setTimeout(() => {
-          setReady((r) => {
-            if (!r) setInvalid(true);
-            return r;
-          });
-        }, 3000);
-    });
+    const url = new URL(window.location.href);
+    const hash = new URLSearchParams(url.hash.replace(/^#/, ""));
+    const code = url.searchParams.get("code");
+    const tokenHash = url.searchParams.get("token_hash");
+    const linkError = url.searchParams.get("error_description") || hash.get("error_description");
+
+    (async () => {
+      if (linkError) {
+        toast.error(linkError.replace(/\+/g, " "));
+        setInvalid(true);
+        return;
+      }
+      if (code) {
+        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error) return setReady(true);
+      } else if (tokenHash) {
+        const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: "recovery" });
+        if (!error) return setReady(true);
+      } else if (hash.get("access_token") && hash.get("refresh_token")) {
+        const { error } = await supabase.auth.setSession({
+          access_token: hash.get("access_token")!,
+          refresh_token: hash.get("refresh_token")!,
+        });
+        if (!error) return setReady(true);
+      }
+      const { data } = await supabase.auth.getSession();
+      if (data.session) return setReady(true);
+      setTimeout(() => {
+        setReady((r) => {
+          if (!r) setInvalid(true);
+          return r;
+        });
+      }, 4000);
+    })();
     return () => sub.subscription.unsubscribe();
   }, []);
 
