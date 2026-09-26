@@ -25,6 +25,7 @@ export const Route = createFileRoute("/register")({
 function Register() {
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+  const [neverDonated, setNeverDonated] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
     register_number: "",
