@@ -2,7 +2,7 @@
  * Shared domain constants and helpers for the Blood Donor Management System.
  */
 
-export const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] as const;
+export const BLOOD_GROUPS = ["A+", "A1+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] as const;
 
 export const DEPARTMENTS = [
   "Computer Science",

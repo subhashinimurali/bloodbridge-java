@@ -25,6 +25,7 @@ export const Route = createFileRoute("/register")({
 function Register() {
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+  const [neverDonated, setNeverDonated] = useState(false);
   const [form, setForm] = useState({
     full_name: "",
     register_number: "",
@@ -155,7 +156,19 @@ function Register() {
               <Input id="weight" type="number" min={30} step="0.1" value={form.weight} onChange={(e) => set("weight", e.target.value)} />
             </Field>
             <Field label="Last Donation Date" htmlFor="last_donation_date">
-              <Input id="last_donation_date" type="date" value={form.last_donation_date} onChange={(e) => set("last_donation_date", e.target.value)} />
+              <Input id="last_donation_date" type="date" value={form.last_donation_date} disabled={neverDonated} onChange={(e) => set("last_donation_date", e.target.value)} />
+              <label className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                <input
+                  type="checkbox"
+                  className="size-4 accent-primary"
+                  checked={neverDonated}
+                  onChange={(e) => {
+                    setNeverDonated(e.target.checked);
+                    if (e.target.checked) set("last_donation_date", "");
+                  }}
+                />
+                Not donated yet
+              </label>
             </Field>
             <Field label="Password" htmlFor="password" hint="Minimum 6 characters">
               <Input id="password" type="password" required value={form.password} onChange={(e) => set("password", e.target.value)} />
