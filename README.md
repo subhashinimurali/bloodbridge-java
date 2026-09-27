@@ -18,8 +18,6 @@ On college campuses, emergency blood procurement is often fragmented across soci
 | ORM / migrations | Drizzle Kit (schema tooling), raw SQL Supabase migrations |
 | Tooling | Vite, TypeScript, ESLint, Prettier, Bun |
 
-> This project was scaffolded and iterated on with [Lovable](https://lovable.dev).
-
 ## Core Features
 
 ### Dual-Role Authentication & Security
